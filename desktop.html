@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Jimmy Desktop</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://unpkg.com/xp.css">
+<style>
+    .icon {
+        position: absolute;
+        background-color: grey;
+        padding: 1vh;
+        align-content: center;
+    }
+    h5 {
+            font-size: 5em;
+            font-family: serif;
+            color: transparent;
+            text-align: center;
+            animation: effect 2s linear infinite;
+            
+        }
+ 
+        @keyframes effect {
+            0% {
+                background: linear-gradient(
+                        #008000, #00FF00);
+                -webkit-background-clip: text;
+            }
+ 
+            100% {
+                background: linear-gradient(
+                        #3CE7D7, #000FFF);
+                -webkit-background-clip: text;
+            }
+        }
+    
+    li a{
+        cursor: url('data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/wAAAP8AAAH/gAAB/4AAA/+AAAP/wAAH/8AABf/AAA3/wAAd/8AAGf7AAAG2wAABtoAAAbYAAAGwAAABgAAAAYAAAAGAAAABgAAAAYAAAAAAAAA//////////////////////////////////////////////////////gB///4Af//+AH///AA///wAP//4AD//+AAf//AAH//wAB//4AAf/8AAH//AAB//xAAf//wAP//8AH///AH///wP///8P////D////w////8P////n///8='), auto; 
+    }
+    button{
+        cursor: url('data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/wAAAP8AAAH/gAAB/4AAA/+AAAP/wAAH/8AABf/AAA3/wAAd/8AAGf7AAAG2wAABtoAAAbYAAAGwAAABgAAAAYAAAAGAAAABgAAAAYAAAAAAAAA//////////////////////////////////////////////////////gB///4Af//+AH///AA///wAP//4AD//+AAf//AAH//wAB//4AAf/8AAH//AAB//xAAf//wAP//8AH///AH///wP///8P////D////w////8P////n///8='), auto; 
+    }
+</style>
+</head>
+<body style="overscroll-behavior: none;">
+    <div class="container">
+        <div class="screen">
+            <div class="window" style="width:95vw; height:90vh; margin:auto; margin-top:1vh;">
+                <div class="title-bar" style="padding-top:1.8vh; padding-bottom:1.8vh;">
+                  <div class="title-bar-text">Jimmy's Site</div>
+                  <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                  </div>
+                </div>
+                <div class="window-body" style="height:94%">
+                    <section class="tabs" style="height:100%">
+                        <script>
+                            window.addEventListener('DOMContentLoaded', () => {
+                                const tabs = document.querySelectorAll('[role="tab"]');
+                                const tabList = document.querySelector('[role="tablist"]');
+
+                                // Add a click event handler to each tab
+                                tabs.forEach(tab => {
+                                  tab.addEventListener('click', changeTabs);
+                                });
+                            
+                                // Enable arrow navigation between tabs in the tab list
+                                let tabFocus = 0;
+                            
+                                tabList.addEventListener('keydown', e => {
+                                  // Move right
+                                  if (e.keyCode === 39 || e.keyCode === 37) {
+                                    tabs[tabFocus].setAttribute('tabindex', -1);
+                                    if (e.keyCode === 39) {
+                                      tabFocus++;
+                                      // If we're at the end, go to the start
+                                      if (tabFocus >= tabs.length) {
+                                        tabFocus = 0;
+                                      }
+                                      // Move left
+                                    } else if (e.keyCode === 37) {
+                                      tabFocus--;
+                                      // If we're at the start, move to the end
+                                      if (tabFocus < 0) {
+                                        tabFocus = tabs.length - 1;
+                                      }
+                                    }
+                                
+                                    tabs[tabFocus].setAttribute('tabindex', 0);
+                                    tabs[tabFocus].focus();
+                                  }
+                                });
+                            });
+
+                            function changeTabs(e) {
+                              const target = e.target;
+                              const parent = target.parentNode;
+                              const grandparent = parent.parentNode;
+                            
+                              // Remove all current selected tabs
+                              parent
+                                .querySelectorAll('[aria-selected="true"]')
+                                .forEach(t => t.setAttribute('aria-selected', false));
+                            
+                              // Set this tab as selected
+                              target.setAttribute('aria-selected', true);
+                            
+                              // Hide all tab panels
+                              grandparent
+                                .querySelectorAll('[role="tabpanel"]')
+                                .forEach(p => p.setAttribute('hidden', true));
+                            
+                              // Show the selected panel
+                              grandparent.parentNode
+                                .querySelector(`#${target.getAttribute('aria-controls')}`)
+                                .removeAttribute('hidden');
+                            }
+                        </script>
+                        <menu role="tablist">
+                          <button role="tab" aria-selected="true" aria-controls="welcome">Welcome!</button>
+                          <button role="tab" aria-controls="about">About Me</button>
+                          <button role="tab" aria-controls="covid">Covid Face Shields</button>
+                          <button role="tab" aria-controls="projects">Projects</button>
+                          <button role="tab" aria-controls="work">Work History</button>
+                          <button role="tab" aria-controls="hire">Hire Me</button>
+                          <button role="tab" aria-controls="email">Email Service</button>
+                        </menu>
+                        <div style="height:97%; overflow-y:auto">
+                            <article role="tabpanel" id="welcome">
+                                <h2 style="display:inline">Welcome to </h2> <h5 style="display:inline">JimmyErickson.com!</h5>
+                                <h4>Hi! I'm Jimmy. Take a look around at the different tabs up top!</h4>
+                                <h4>Check out 'Projects' if you want to learn about how this website is being hosted</h4>
+                            </article>
+                        
+                            <article role="tabpanel" hidden id="about">
+                                <h2>About Me</h2>
+                                <h3></h3>
+                                <h3></h3>
+                            </article>
+                        
+                            <article role="tabpanel" hidden id="covid">
+                                <aside>
+                                    <ul class="tree-view">
+                                        <li><a href="#intro">Intro</a></li>
+                                        <li><a href="#stats">Stats</a></li>
+                                        <li>
+                                            <a href="#production">Production Process</a>
+                                            <ul>
+                                                <li><a href="#design">1. Design</a></li>
+                                                <li><a href="#materials">2. Materials</a></li>
+                                                <li><a href="#printing">3. Printing</a></li>
+                                                <li><a href="#monitoring">4. Monitoring</a></li>
+                                                <li><a href="#shields">5. Shields</a></li>
+                                                <li><a href="#packaging">6. Packaging</a></li>
+                                                <li><a href="#donating">7. Donating</a></li>
+                                                <li><a href="#thanks">8. Thank You's</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </aside>
+                                
+                                
+                                <main>
+                                    <img src="Media/Printers.jpg" alt="Printers" style="width:100%">
+                                    <div class="textSection" style="align-content:center; text-align:center;">
+                                        <p style="margin:auto">Above is the 'printing room' (normally the living room) where we ran six 3D printers that created the visors for the face shields. Three were on loan; two from Eastview High School, and one from Penny Anderson.</p>
+                                        <h2 id="intro">Welcome To The Erickson Face Shield Factory!</h2>
+                                        <h3>
+                                          Thanks to material donations from the community, my family and I were able to 3d-print and distribute 8500 face shields around the Twin Cities and beyond between April 2020 and March 2021.
+                                        </h3>
+
+                                        <iframe height="300px" width="500px" src="https://www.youtube.com/embed/K2nBcuaEC4Y?autoplay=1" alt="timelapse of printer"></iframe>
+
+                                        <h3 id="stats">Here's Some Info On Our Operation! (Scroll further down to see more photos)</h3>
+                                    </div>
+                                    <h3 style="text-align:center;">
+                                        <iframe margin=auto height="1050" width="370" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT6nmctmNCDAN0XXb1nSe9yBIMlBW33ZhYks5CM9xGVWzR5URntwoPCWK8kWpKLlA-lX5If5EtpesNq/pubhtml?gid=2044826338&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+                                    </h3>
+                                    <iframe style="display:block; margin:auto" width="729" height="450" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT6nmctmNCDAN0XXb1nSe9yBIMlBW33ZhYks5CM9xGVWzR5URntwoPCWK8kWpKLlA-lX5If5EtpesNq/pubchart?oid=1306998168&amp;format=interactive"></iframe>
+                                    <div class="textSection">  
+                                        <h2 id="production">Production Process</h2>
+                                        <h4>This section will walk you through the process we use to create these face shields and provide you with the information needed to replicate this process, provided you have a 3d printer.</h4>
+                                    </div>
+                                    <img src="Media/gcode.PNG" alt="picture of gcode" class="center" >
+                                    <div class="textSection"> 
+                                        <h3 id="design">Step 1: The Design</h3>
+                                        <h4>We start with the gcode file which is a <a href="https://3dverkstan.se/3dvfaceshield-och-den-otroliga-kraften-inom-3d-branschen/">swedish design</a> that we found on the internet. A thing that sets this design apart from others is that it does not require elastic and uses less plastic than many other designs. In our current world, certain materials are in very high demand right now, so it was nice to find something that did not require elastic, which is one of them.</h4>
+                                    </div>
+                                    <img src="Media/materials.jpg" alt="Materials laid out on a table" class="center" >
+                                    <div class="textSection">
+                                        <h3 id="materials">Step 2: The Materials</h3>
+                                        <h4>As I said before, some designs use either large amounts of materials, or materials that are in high-demand because of their current need for face shields. The design that we use requires PLA, clear sheets, rubber bands, ziploc bags, and a modified hole puncher (more information on how you can help on the <a href="donate.html">donations page</a>).</h4>
+                                    </div>
+                                    <img src="Media/SinglePrinter.jpg" alt="A single printer" class="center" >
+                                    <div class="textSection">
+                                        <h3 id="printing">Step 3: The Printing</h3>
+                                        <h4>As mentioned before, we currently have six 3d printers currently running at a capacity of nearly 90 visors per day. Each print takes about 1.5 hours, after which it is removed, cleaned, and another print is started.</h4>
+                                    </div>
+                                    <img src="Media/octofarm.PNG" alt="Screenshot of Octoprint" class="center" >
+                                    <div class="textSection">
+                                        <h3 id="monitoring">Step 4: Monitoring The Printing</h3>
+                                        <h4>With six printers going at different speeds all day long, it can be a bit much to manageon top of jobs/school. Because of this, Andrew has set up the printers with an online management system so we can remotely monitor the status of the printers and start a print from online.</h4>
+                                    </div>
+                                    <img src="Media/shieldProcess.jpg" alt="The Shield Process" class="center" >
+                                    <div class="textSection">
+                                        <h3 id="shields">Step 5: The Shields</h3>
+                                        <h4>Everything up until now has been about the visors, the part that holds up the face shield. The actual shield part is made from binder cover sheets which have the corners rounded and get hole-punched so they can fit on the visor.</h4>
+                                    </div>
+                                    <img src="Media/Assembly.JPG" alt="The assembly line" class="center" >
+                                    <div class="textSection">
+                                        <h3 id="packaging">Step 6: The Packaging</h3>
+                                        <h4>In order to efficiently transport the shields, we do not assemble them but instead assemble shield kits with assembly instructions in each delivery. Each kit includes one visor, one shield, and one rubber band (to secure the shield on the back of the head in order to follow regulations) in a ziploc bag with a little thank you message to show our appreciation for the front-line fighters against this pandemic.</h4>
+                                    </div>
+                                    <img src="Media/completeKit.jpg" alt="A complete mask kit" class="center" >
+                                    <div class="textSection">
+                                        <h3 id="donating">Step 7: The Donation</h3>
+                                        <h4>We work with various healthcare institutions including hospitals, nursing homes, and dental clinics to distribute the shields we make in order to maximize the effect of these donations.</h4>
+                                    </div>
+                                    <img src="Media/completeShield.jpg" alt="A completed shield" class="center" >
+                                    <div class="textSection">
+                                        <h3 id="thanks">Step 8: The Thank You's</h3>
+                                        <h4>We'd like to thank the healthcare workers on the front lines of this pandemic, the people that are helping us do this project with materials and getting us in contact with healthcare institutions, and everyone that is staying in their house and stemming the tide.</h4>
+                                    </div>
+                                </main>
+                            </article>
+
+                            <article role="tabpanel" hidden id="projects">
+                                <aside>
+                                    <ul class="tree-view">
+                                        <li><a href="#intro">Intro</a></li>
+                                        <li>
+                                            <a href="#server-projects">Server Projects</a>
+                                            <ul>
+                                                <li><a href="#personal">Personal Server</a></li>
+                                                <li><a href="#church">Church Server</a></li>
+                                                <li>
+                                                    <a href="#services">Hosted Services</a>
+                                                    <ul>
+                                                        <li><a href="#website">Website</a></li>
+                                                        <li><a href="#vscode">VSCode Server</a></li>
+                                                        <li><a href="#email">Email</a></li>
+                                                        <li><a href="#plex">Plex</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </aside>
+                                <main>
+                                    
+                                    <section class="component">
+                                        <h3 id="intro">Intro</h3>
+                                        <div>
+                                            <p>Working with servers started out as just a fun project with my brother to do a little bit of crypto mining, but now it's grown into a full-on hobby. Check out below to learn more!</p>
+                                        </div>
+                                        </section>
+                                    <h3 id="server-projects">Server Projects</h3>
+                                    <section class="component">
+                                        <h4 id="personal">Personal Server</h4>
+                                        <div>
+                                            <p>stuff goes here</p>
+                                        </div>
+                                    </section>
+                                    <section class="component">
+                                        <h4 id="church">Church Server</h4>
+                                        <div>
+                                        
+                                        </div>
+                                    </section>
+                                    <h3 id="services">Hosted Services</h3>
+                                    <section class="component">
+                                        <h4 id="website">Website</h4>
+                                        <div>
+                                        
+                                        </div>
+                                    </section>
+                                    <section class="component">
+                                        <h4 id="vscode">VSCode Server</h4>
+                                        <div>
+                                        
+                                        </div>
+                                    </section>
+                                    <section class="component">
+                                        <h4 id="email">Email</h4>
+                                        <div>
+                                        
+                                        </div>
+                                    </section>
+                                    <section class="component">
+                                        <h4 id="plex">Plex</h4>
+                                        <div>
+                                        
+                                        </div>
+                                    </section>
+                                </main>
+                            </article>
+
+                            <article role="tabpanel" hidden id="hire">
+                                <h2>Present</h2>
+                                <h4>Currently, I am working aiming on getting a developer job in Lincoln, with the goal of working on backend systems or data science. Ideally, I'd like to work with cloud technologies as that will be a significant part of my future work.</h4>
+                                <h2>5 Years From Now</h2>
+                                <h4>By this point, I'd want to make sure that I'm getting to work on data science projects, if I haven't fully transitioned to a data science role.</h4>
+                                <h2>10+ Years</h2>
+                                <h4>By this point, I'd like to be in a data scientist role.</h4>
+                            </article>
+
+                            <article role="tabpanel" hidden id="work">
+                                <aside>
+                                    <ul class="tree-view">
+                                        <li><a href="#intro">Intro</a></li>
+                                        <li>
+                                            <a href="#server-projects">Grad School</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="#services">Research</a>
+                                                    <ul>
+                                                        <li><a href="#vscode">CPN Lab</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="#services">Internships</a>
+                                                    <ul>
+                                                        <li><a href="#vscode">Blackbaud</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li> 
+                                        <li>
+                                            <a href="#server-projects">Undergrad</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="#services">Internships</a>
+                                                    <ul>
+                                                        <li><a href="#email">FCS America</a></li>
+                                                        <li><a href="#email">CHS Inc.</a></li>
+                                                        <li><a href="#plex">BAE Systems</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="#services">Research</a>
+                                                    <ul>
+                                                        <li><a href="#email">UCARE</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="#services">Other</a>
+                                                    <ul>
+                                                        <li><a href="#website">UNL Housing</a></li>
+                                                        <li><a href="#website">B.E. Equipment</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                            <a href="#server-projects">High School</a>
+                                            <ul>
+                                                <li><a href="#personal">Hy-Vee</a></li>
+                                                <li>
+                                                    <a href="#services">Culver's</a>
+                                                    <ul>
+                                                        <li><a href="#website">Crew Trainer</a></li>
+                                                        <li><a href="#vscode">Crew Member</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </aside>
+                                <main>
+                                    <h2 id="intro">Work History</h2>
+                                    <section class="component">
+                                        <p>Here's an overview of my work history. I was raised to appreciate working hard, and I've been working since I was 14 and old enough to get a job at Culver's.</p>
+                                    </section>
+                                    <h3 id="grad">Grad School</h3>
+                                    <section class="component">
+                                        <h4 id="grad-research">CPN Lab</h4>
+                                        <div>
+                                            <p>description</p>
+                                        </div>
+                                    </section>
+                                    <section class="component">
+                                        <h4 id="church">Blackbaud</h4>
+                                        <div>
+                                            <p>hello tehre</p>
+                                        </div>
+                                    </section>
+                                    <h3 id="services">Undergrad</h3>
+                                    <section class="component">
+                                        <h4 id="website">FCS America</h4>
+                                        <div>
+                                        
+                                        </div>
+                                    </section>
+                                    <section class="component">
+                                        <h4 id="chs">CHS Inc.</h4>
+                                        <div>
+                                        
+                                        </div>
+                                    </section>
+                                    <section class="component">
+                                        <h4 id="bae">BAE Systems</h4>
+                                        <div>
+                                        
+                                        </div>
+                                    </section>
+                                    <section class="component">
+                                        <h4 id="ucare">UCARE</h4>
+                                        <div>
+                                        
+                                        </div>
+                                    </section>
+                                    <section class="component">
+                                        <h4 id="housing">UNL Housing</h4>
+                                        <div>
+                                        
+                                        </div>
+                                    </section>
+                                    <section class="component">
+                                        <h4 id="be">B.E. Equipment</h4>
+                                        <div>
+                                        
+                                        </div>
+                                    </section>
+                                    <h3 id="highschool">High School</h3>
+                                    <section class="component">
+                                        <h4 id="hyvee">Hy-Vee</h4>
+                                        <div>
+                                        
+                                        </div>
+                                    </section>
+                                    <section class="component">
+                                        <h4 id="culvers">Culver's</h4>
+                                        <div>
+                                        
+                                        </div>
+                                    </section>
+                                </main>
+                            </article>
+
+                            <article role="tabpanel" hidden id="email">
+                                <h2>Hello</h2>
+                            </article>
+                        </div>
+                    </section>
+                  </div>
+              </div>
+            <div class="taskbar">
+                <div class="main-section">
+                    <label class="start-button" for="start-menu-active">
+                        <img src="images/windows_vista.ico" width="20px" height="auto" padding="0px">
+                        start
+                    </label>
+                        <p style="color:white; text-align:right; float:right; margin-bottom:0px; padding-right:13px; font-size:1em">
+                            <span id='time'></span>
+                        </h4>
+                        <script>
+                            var date = new Date();
+                            var hours = date.getHours();
+                            var minutes = date.getMinutes();
+                            var ampm = hours >= 12 ? 'pm' : 'am';
+                            hours = hours % 12;
+                            hours = hours ? hours : 12; // the hour '0' should be '12'
+                            minutes = minutes < 10 ? '0'+minutes : minutes;
+                            var strTime = hours + ':' + minutes + ' ' + ampm;
+                            document.getElementById('time').innerHTML=strTime;
+                        </script>
+                    
+                    
+                    <div class="quick-section"></div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+      <!-- partial -->
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script><script  src="./script.js"></script>
+      
+</body>
